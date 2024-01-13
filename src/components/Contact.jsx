@@ -3,17 +3,39 @@ import Poster from '../assets/img/caleg.jpeg';
 
 const Contact = () => {
 	const [name, setName] = useState('')
-	const [adress, setAdress] = useState('')
+	const [address, setAddress] = useState('')
 
-	const handleSendToWhatsApp = () => {
+	const handleSendButton = async () => {
+		const phoneNumber = "6285787121453";
+	  	const encodedName = encodeURIComponent(name);
+	  	const encodedAdress = encodeURIComponent(address);
+	  	const currentTimestamp = new Date().toISOString();
+	
+	  	const whatsAppURL = `https://wa.me/${phoneNumber}?text=Saya%20${encodedName},%20Pendukung%20Ibu%20HENDRAWATI:%0A%0ANama%3A%20${encodedName}%0AAlamat%3A%20${encodedAdress}`;
+	  	window.open(whatsAppURL, "_blank");
 
-		const phoneNumber = "6285787121453"
-		const encodedName = encodeURIComponent(name);
-		const encodedAdress = encodeURIComponent(adress);
-		const URL = `https://wa.me/${phoneNumber}?text=Saya%20${encodedName},%20Pendukung%20Ibu%20HENDRAWATI:%0A%0ANama%3A%20${encodedName}%0AAlamat%3A%20${encodedAdress}`;
-
-		window.open(URL, "_blank");
- 	 };
+	  	const scriptURL = 'https://script.google.com/macros/s/	AKfycbyLkmonuyc8sBBVnQv_BWTtRta7OgGQHoXn62nS-byDvxFAsJrOas28MKHlIVZhkt5ZgQ/exec';
+	  	const data = { name: encodedName, address: encodedAdress, timestamp:currentTimestamp }; 
+	
+	  	try {
+	  	  const response = await fetch(scriptURL, {
+	  	    method: 'POST',
+	  	    mode: 'no-cors',
+	  	    headers: {
+	  	      'Content-Type': 'application/x-www-form-urlencoded',
+	  	    },
+	  	    body: new URLSearchParams(data).toString(),
+	  	  });
+		
+	  	  if (response.ok) {
+	  	    console.log('Data berhasil dikirim.');
+	  	  } else {
+	  	    console.error('Di log Gagal, tapi berhasil ngirim?? memang aneh JavaScript');
+	  	  }
+	  	} catch (error) {
+	  	  console.error('Error:', error);
+	  	}
+	};
 
 	return(
 		<div className="flex flex-col md:flex-row justify-center md:justify-between items-center px-6 gap-8">
@@ -42,16 +64,16 @@ const Contact = () => {
 								className="py-1 px-3 rounded-full" 
 								type="text" 
 								placeholder="Alamat Tinggal Sekarang"
-								value={adress}
-								onChange={(e) => setAdress(e.target.value)}
+								value={address}
+								onChange={(e) => setAddress(e.target.value)}
 							/>
 						</div>
-						{name && adress 
+						{name && address 
 						? 
 						<div className="flex justify-end mt-4">
 							<button 
 								className="py-2 font-semibold px-4 rounded-full border-2 border-green-600 bg-green-500 shadow-md shadow-slate-900 hover:bg-green-600 focus:bg-green-700 focus:text-slate-200"
-								onClick={handleSendToWhatsApp}
+								onClick={handleSendButton}
 							>
 								Kirim
 							</button>
