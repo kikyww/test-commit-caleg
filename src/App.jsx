@@ -14,7 +14,7 @@ function App() {
       <main className="w-full h-[90vh]">
         <Hero /> 
       </main>
-      <section className="min-[360px]:mt-[200px] min-[428px]:mt-[50px] mb-12 md:mt-0 w-full h-full">
+      <section className="min-[360px]:mt-[330px] min-[428px]:mt-[170px] min-[414px]:mt-[200px] mb-12 md:mt-0 w-full h-full">
         <Contact /> 
       </section>
 
