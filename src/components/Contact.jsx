@@ -6,7 +6,7 @@ const Contact = () => {
 	const [address, setAddress] = useState('')
 
 	const handleSendButton = async () => {
-		const phoneNumber = "6285787121453";
+		const phoneNumber = "6281346772544";
 	  	const encodedName = encodeURIComponent(name);
 	  	const encodedAdress = encodeURIComponent(address);
 	  	const currentTimestamp = new Date().toISOString();
@@ -15,7 +15,7 @@ const Contact = () => {
 	  	window.open(whatsAppURL, "_blank");
 
 	  	const scriptURL = 'https://script.google.com/macros/s/	AKfycbyLkmonuyc8sBBVnQv_BWTtRta7OgGQHoXn62nS-byDvxFAsJrOas28MKHlIVZhkt5ZgQ/exec';
-	  	const data = { name: encodedName, address: encodedAdress, timestamp:currentTimestamp }; 
+	  	const data = { name: name, address: address, timestamp:currentTimestamp }; 
 	
 	  	try {
 	  	  const response = await fetch(scriptURL, {
