@@ -4,18 +4,20 @@ import Poster from '../assets/img/caleg.jpeg';
 const Contact = () => {
 	const [name, setName] = useState('')
 	const [address, setAddress] = useState('')
+	const [total, setTotal] = useState('')
 
 	const handleSendButton = async () => {
 		const phoneNumber = "6281346772544";
 	  	const encodedName = encodeURIComponent(name);
 	  	const encodedAdress = encodeURIComponent(address);
+	  	const encodedTotal = encodeURIComponent(total);
 	  	const currentTimestamp = new Date().toISOString();
 	
-	  	const whatsAppURL = `https://wa.me/${phoneNumber}?text=Saya%20${encodedName},%20Pendukung%20Ibu%20HENDRAWATI:%0A%0ANama%3A%20${encodedName}%0AAlamat%3A%20${encodedAdress}`;
+	  	const whatsAppURL = `https://wa.me/${phoneNumber}?text=Saya%20${encodedName},%20Pendukung%20Ibu%20HENDRAWATI:%0A%0ANama%3A%20${encodedName}%0AAlamat%3A%20${encodedAdress}%0ATotal Pendukung Serumah%3A%20${encodedTotal}%20Orang`;
 	  	window.open(whatsAppURL, "_blank");
 
 	  	const scriptURL = 'https://script.google.com/macros/s/	AKfycbyLkmonuyc8sBBVnQv_BWTtRta7OgGQHoXn62nS-byDvxFAsJrOas28MKHlIVZhkt5ZgQ/exec';
-	  	const data = { name: name, address: address, timestamp:currentTimestamp }; 
+	  	const data = { name: name, address: address, total: total, timestamp:currentTimestamp }; 
 	
 	  	try {
 	  	  const response = await fetch(scriptURL, {
@@ -66,6 +68,16 @@ const Contact = () => {
 								placeholder="Alamat Tinggal Sekarang"
 								value={address}
 								onChange={(e) => setAddress(e.target.value)}
+							/>
+						</div>
+						<div className="flex flex-col">
+							<label className="text-white font-bold text-lg mt-3 my-1">Jumlah Pendukung</label>
+							<input 
+								className="py-1 px-3 rounded-full" 
+								type="number" 
+								placeholder="Total Pendukung Serumah"
+								value={total}
+								onChange={(e) => setTotal(e.target.value)}
 							/>
 						</div>
 						{name && address 
